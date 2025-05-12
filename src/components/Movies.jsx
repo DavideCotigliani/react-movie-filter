@@ -17,6 +17,8 @@ const Movies = () => {
     const [filteredArray, setFilteredArray] = useState(defaultMovies)
     // useState per i titoli
     const [searchTitle, setSearchTitle] = useState("")
+    // per aggiungere nuovi film
+    const [newFilm, setNewFilm] = useState('');
 
 
 
@@ -40,24 +42,26 @@ const Movies = () => {
     const genres = (moviesArray.map(movie => movie.genre))
     // estraggo i titoli dall'array
     const titles = (moviesArray.map(movie => movie.title))
+
     return (
         <>
-            {/* Creo il select */}
-            <select className="select-text" value={search} onChange={e => { setSearch(e.target.value) }} >
-                <option value="">Tutti i generi</option>
-                {/* Ciclo i generi dentro l'option */}
-                {genres.map((genre) => {
-                    return <option key={genre}>{genre}</option>
-                })}
-            </select>
-
-            <select className="select-text" value={searchTitle} onChange={e => { setSearchTitle(e.target.value) }}>
-                <option value="">Tutti i titoli</option>
-                {/* Ciclo i titoli dentro l'option */}
-                {titles.map((title) => (
-                    <option key={title}>{title}</option>
-                ))}
-            </select>
+            <div className="container">
+                {/* Creo il select e form */}
+                {/* Generi */}
+                <select className="select-text" value={search} onChange={e => { setSearch(e.target.value) }} >
+                    <option value="">Tutti i generi</option>
+                    {genres.map((genre) => {
+                        return <option key={genre}>{genre}</option>
+                    })}
+                </select>
+                {/* Titoli */}
+                <select className="select-text" value={searchTitle} onChange={e => { setSearchTitle(e.target.value) }}>
+                    <option value="">Tutti i titoli</option>
+                    {titles.map((title) => (
+                        <option key={title}>{title}</option>
+                    ))}
+                </select>
+            </div>
             {/* Filtro l'array */}
             <ul>
                 {filteredArray.map((movie) => (

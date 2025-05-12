@@ -15,10 +15,15 @@ const Movies = () => {
     const [search, setSearch] = useState("")
     // creo array per la funzione State di filtraggio
     const [filteredArray, setFilteredArray] = useState(defaultMovies)
+
     // creo la funzione di useEffect
     useEffect(() => {
         console.log("Aggiornamento")
-    })
+        const filteredfilms = defaultMovies.filter((defaultMovies) => {
+            return defaultMovies.genre.toLowerCase().includes(search.toLowerCase());
+        })
+        setFilteredArray(filteredfilms);
+    }, [defaultMovies, search])
 
     return (
         <>
@@ -26,7 +31,7 @@ const Movies = () => {
             <select className="select-text" value={search} onChange={e => { setSearch(e.target.value) }} ></select>
             {/* Filtro l'array */}
             <ul>
-                {moviesArray.map((movie) => (
+                {filteredArray.map((movie) => (
                     <li key={movie.title}> {movie.title} - {movie.genre}</li>
                 ))}
             </ul>

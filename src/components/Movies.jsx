@@ -25,10 +25,19 @@ const Movies = () => {
         setFilteredArray(filteredfilms);
     }, [defaultMovies, search])
 
+    // estraggo i generi dall'array
+    const genres = (moviesArray.map(movie => movie.genre))
+
     return (
         <>
             {/* Creo il select */}
-            <select className="select-text" value={search} onChange={e => { setSearch(e.target.value) }} ></select>
+            <select className="select-text" value={search} onChange={e => { setSearch(e.target.value) }} >
+                <option value="">Tutti i generi</option>
+                {/* Ciclo i generi dentro l'option */}
+                {genres.map((genre) => {
+                    return <option key={genre}>{genre}</option>
+                })}
+            </select>
             {/* Filtro l'array */}
             <ul>
                 {filteredArray.map((movie) => (

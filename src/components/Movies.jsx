@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const Movies = () => {
     const moviesArray = [
@@ -15,11 +15,15 @@ const Movies = () => {
     const [search, setSearch] = useState("")
     // creo array per la funzione State di filtraggio
     const [filteredArray, setFilteredArray] = useState(defaultMovies)
+    // creo la funzione di useEffect
+    useEffect(() => {
+        console.log("Aggiornamento")
+    })
 
     return (
         <>
             {/* Creo il select */}
-            <select className="select-text" ></select>
+            <select className="select-text" value={search} onChange={e => { setSearch(e.target.value) }} ></select>
             {/* Filtro l'array */}
             <ul>
                 {moviesArray.map((movie) => (

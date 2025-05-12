@@ -15,19 +15,31 @@ const Movies = () => {
     const [search, setSearch] = useState("")
     // creo array per la funzione State di filtraggio
     const [filteredArray, setFilteredArray] = useState(defaultMovies)
+    // useState per i titoli
+    const [searchTitle, setSearchTitle] = useState("")
+
+
 
     // creo la funzione di useEffect
     useEffect(() => {
-        console.log("Aggiornamento")
         const filteredfilms = defaultMovies.filter((defaultMovies) => {
             return defaultMovies.genre.toLowerCase().includes(search.toLowerCase());
         })
         setFilteredArray(filteredfilms);
     }, [defaultMovies, search])
 
+    // creo un seconda useEffect per filtraggio dei titoli
+    useEffect(() => {
+        const filteredtitles = defaultMovies.filter((defaultMovies) => {
+            return defaultMovies.title.toLowerCase().includes(searchTitle.toLowerCase());
+        })
+        setFilteredArray(filteredtitles);
+    }, [defaultMovies, searchTitle])
+
     // estraggo i generi dall'array
     const genres = (moviesArray.map(movie => movie.genre))
-
+    // estraggo i titoli dall'array
+    const titles = (moviesArray.map(movie => movie.title))
     return (
         <>
             {/* Creo il select */}
@@ -37,6 +49,14 @@ const Movies = () => {
                 {genres.map((genre) => {
                     return <option key={genre}>{genre}</option>
                 })}
+            </select>
+
+            <select className="select-text" value={searchTitle} onChange={e => { setSearchTitle(e.target.value) }}>
+                <option value="">Tutti i titoli</option>
+                {/* Ciclo i titoli dentro l'option */}
+                {titles.map((title) => (
+                    <option key={title}>{title}</option>
+                ))}
             </select>
             {/* Filtro l'array */}
             <ul>
